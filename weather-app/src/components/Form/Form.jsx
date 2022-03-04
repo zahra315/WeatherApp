@@ -17,7 +17,7 @@ const Form = ({ submitSearch }) => {
       <input
         arial-label="location"
         type="text"
-        className={"${styles.input} form-control"}
+        className={`${styles.input} form-control`}
         placeholder="Location"
         required
         value={location}
