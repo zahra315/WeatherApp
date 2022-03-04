@@ -11,12 +11,17 @@ import useForecast from "../../hooks/useForecast";
 
 const Page = () => {
   const { isError, isLoading, isForecast } = useForecast();
+
+  const onSubmit = (value) => {
+    console.log({ value });
+  };
+
   return (
     <Fragment>
       <Header />
-      <div className={"${styles.box} position-relative"}>
+      <div className={`${styles.box} position-relative`}>
         {/*Form */}
-        {isLoading && <Form />}
+        <Form submitSearch={onSubmit} />
         {/*Error */}
         {isError && <Error message={isError} />}
         {/*Loader */}
