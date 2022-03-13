@@ -10,9 +10,7 @@ const useForecast = () => {
   const [isLoading, setLoading] = useState(false);
   const [isForecast, setForecast] = useState(null);
 
-  // call the API
-  const submitRequest = async (location) => {
-    // console.log({ location });
+  const getWoeid = async (location) => {
     const { data } = await axios(`${REQUEST_URL}/search`, {
       params: { query: location },
     });
@@ -20,11 +18,34 @@ const useForecast = () => {
 
     if (!data || data.length === 0) {
       setError("Location NOT Founded!");
+      setLoading(false);
       return;
     }
+    return data;
+  };
 
-    const response = await axios(`${REQUEST_URL}/${data[0].woeid}`);
-    console.log({ response });
+  const getForecastData = async (woeid) => {
+    const data = await axios(`${REQUEST_URL}/${woeid}`);
+    if (!data || data.length === 0) {
+      setError("Something went wrong!");
+      setLoading(false);
+      return;
+    }
+    return data[0];
+  };
+
+  // call the API
+  const submitRequest = async (location) => {
+    setLoading(true);
+    setError(false);
+    // console.log({ location });
+    const response = await getWoeid(location);
+    if (!response?.woeid) return;
+    // console.log({ response });
+    const data = await getForecastData(response[0].woeid);
+    if (!data) return;
+
+    console.log({ data });
   };
 
   return {
