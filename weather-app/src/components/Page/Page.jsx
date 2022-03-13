@@ -10,10 +10,10 @@ import styles from "./Page.module.css";
 import useForecast from "../../hooks/useForecast";
 
 const Page = () => {
-  const { isError, isLoading, isForecast } = useForecast();
+  const { isError, isLoading, isForecast, submitRequest } = useForecast();
 
   const onSubmit = (value) => {
-    console.log({ value });
+    submitRequest(value);
   };
 
   return (
