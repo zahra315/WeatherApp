@@ -21,7 +21,7 @@ const currentDayForecast = (data) => [
   },
   {
     name: "max temp",
-    value: Math.round(data.mat_temp),
+    value: Math.round(data.max_temp),
     unit: "°C",
   },
   {

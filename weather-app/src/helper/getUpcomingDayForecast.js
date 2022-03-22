@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const getWeekly = (date) => moment(date).format("dddd").substring(0, 3);
+const getWeekday = (date) => moment(date).format("dddd").substring(0, 3);
 
 const getUpcomingDayForecast = (data) =>
   data.slice(1).map((day) => ({
