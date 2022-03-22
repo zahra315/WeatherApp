@@ -6,11 +6,12 @@ import Error from "../Error";
 import Loader from "../Loader";
 import Forecast from "../Forecast";
 
-import styles from "./Page.module.css";
 import useForecast from "../../hooks/useForecast";
 
+import styles from "./Page.module.css";
+
 const Page = () => {
-  const { isError, isLoading, isForecast, submitRequest } = useForecast();
+  const { isError, isLoading, forecast, submitRequest } = useForecast();
 
   const onSubmit = (value) => {
     submitRequest(value);
@@ -19,16 +20,18 @@ const Page = () => {
   return (
     <Fragment>
       <Header />
-      <div className={`${styles.box} position-relative`}>
-        {/*Form */}
-        <Form submitSearch={onSubmit} />
-        {/*Error */}
-        {isError && <Error message={isError} />}
-        {/*Loader */}
-        {isLoading && <Loader />}
-      </div>
-      {/*Forecast */}
-      {isForecast && <Forecast />}
+      {!forecast && (
+        <div className={`${styles.box} position-relative`}>
+          {/* Form */}
+          {!isLoading && <Form submitSearch={onSubmit} />}
+          {/* Error */}
+          {isError && <Error message={isError} />}
+          {/* Loader */}
+          {isLoading && <Loader />}
+        </div>
+      )}
+      {/* Forecast */}
+      {forecast && <Forecast forecast={forecast} />}
     </Fragment>
   );
 };
